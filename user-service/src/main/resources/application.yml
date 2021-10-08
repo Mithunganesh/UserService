@@ -1,0 +1,17 @@
+spring:
+  application:
+    name: user-service
+  datasource:
+    driverClassName: com.mysql.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/healthcare_db
+    username: root
+    password: mypassword
+  jpa:
+    hibernate.ddl-auto: create-drop
+    generate-ddl: true
+    show-sql: true
+
+server:
+  port: 8081
+
+
