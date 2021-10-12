@@ -1,6 +1,8 @@
 package com.ideas2it.healthcare.userservice.controller;
 
+import com.ideas2it.healthcare.userservice.entity.ResultEntity;
 import com.ideas2it.healthcare.userservice.entity.RoleEntity;
+import com.ideas2it.healthcare.userservice.entity.RoleSearchEntity;
 import com.ideas2it.healthcare.userservice.entity.UserEntity;
 import com.ideas2it.healthcare.userservice.service.RoleService;
 import com.ideas2it.healthcare.userservice.service.UserService;
@@ -37,7 +39,7 @@ public class UserController {
         return userEntity;
     }
     @DeleteMapping("/deleteUser/{id}")
-    public Boolean deleteUser(@PathVariable String id){
+    public ResultEntity deleteUser(@PathVariable String id){
         return userService.deleteUserById(UUID.fromString(id));
     }
 
@@ -56,8 +58,13 @@ public class UserController {
         return roleService.getRoles();
     }
 
+    @GetMapping("/getUserRole/{name}")
+    public RoleSearchEntity getUserRoles(@PathVariable String name) {
+        return userService.getUserRole(name);
+    }
+
     @PutMapping("/updateUser")
-    public Boolean updateUser(@RequestBody UserEntity userEntity){
+    public ResultEntity updateUser(@RequestBody UserEntity userEntity){
         return userService.update(userEntity);
     }
 }

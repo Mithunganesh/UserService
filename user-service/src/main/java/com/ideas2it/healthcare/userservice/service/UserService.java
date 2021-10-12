@@ -1,6 +1,8 @@
 package com.ideas2it.healthcare.userservice.service;
 
 import com.ideas2it.healthcare.userservice.dto.UserDto;
+import com.ideas2it.healthcare.userservice.entity.ResultEntity;
+import com.ideas2it.healthcare.userservice.entity.RoleSearchEntity;
 import com.ideas2it.healthcare.userservice.entity.UserEntity;
 
 import java.util.UUID;
@@ -12,7 +14,9 @@ public interface UserService {
 
     public UserDto findByName(String name);
 
-    public boolean update(UserEntity userEntity);
+    public ResultEntity update(UserEntity userEntity);
 
-    public boolean deleteUserById(UUID uuid);
+    public ResultEntity deleteUserById(UUID uuid);
+
+    public RoleSearchEntity getUserRole(String userName);
 }

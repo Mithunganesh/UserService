@@ -1,6 +1,8 @@
 package com.ideas2it.healthcare.userservice.service;
 
 import com.ideas2it.healthcare.userservice.dto.UserDto;
+import com.ideas2it.healthcare.userservice.entity.ResultEntity;
+import com.ideas2it.healthcare.userservice.entity.RoleSearchEntity;
 import com.ideas2it.healthcare.userservice.entity.UserEntity;
 import com.ideas2it.healthcare.userservice.repository.UserRepository;
 import com.ideas2it.healthcare.userservice.util.EntityDtoConversionUtils;
@@ -40,23 +42,29 @@ public class UserServiceImpl implements UserService{
 
 
 
-    public boolean update(UserEntity userEntity){
+    public ResultEntity update(UserEntity userEntity){
     UserDto userInDb = findByName(userEntity.getUserName());
     if(userInDb != null) {
         userRepository.update(userEntity.getRoleId(), userEntity.getUserName());
-        return true;
+        return new ResultEntity.ResultEntityBuilder().result(true).build();
     }else{
-        return false;
+        return new ResultEntity.ResultEntityBuilder().result(false).build();
     }
     }
 
     @Override
-    public boolean deleteUserById(UUID uuid) {
+    public ResultEntity deleteUserById(UUID uuid) {
         Optional<UserDto> op = userRepository.findById(uuid);
         if(op.isPresent()){
             userRepository.delete(op.get());
-            return true;
+            return new ResultEntity.ResultEntityBuilder().result(true).build();
         }else{
-        return false;}
+        return new ResultEntity.ResultEntityBuilder().result(false).build();
+        }
+    }
+
+    @Override
+    public RoleSearchEntity getUserRole(String userName) {
+        return userRepository.findRoleByUserName(userName);
     }
 }

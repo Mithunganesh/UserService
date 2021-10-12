@@ -35,8 +35,8 @@ public class RoleServiceImpl implements RoleService{
     @Override
     public List<RoleEntity> getRoles() {
 
-        List<RoleDto> roleDtoli=roleRepository.findAll();
-        List<RoleEntity> roleEntityli=roleDtoli.stream().map(dto-> EntityDtoConversionUtils.formRoleEntity(dto)).collect(Collectors.toList());
-        return roleEntityli;
+        List<RoleDto> roleDtolist=roleRepository.findAll();
+        List<RoleEntity> roleEntitylist=roleDtolist.stream().map(dto-> EntityDtoConversionUtils.formRoleEntity(dto)).collect(Collectors.toList());
+        return roleEntitylist;
     }
 }
