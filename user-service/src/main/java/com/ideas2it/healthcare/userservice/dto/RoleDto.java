@@ -1,6 +1,6 @@
 package com.ideas2it.healthcare.userservice.dto;
 
-import com.ideas2it.healthcare.userservice.entity.UserEntity;
+import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
@@ -11,13 +11,13 @@ import java.util.UUID;
 @Table(name="role_table")
 public class RoleDto {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "role_id", columnDefinition = "VARCHAR(200)", insertable = false, updatable = false, nullable = false)
     @Type(type = "uuid-char")
-    @Column(name = "role_id",columnDefinition = "VARCHAR(255)", insertable = false, updatable = false, nullable = false)
+    @GeneratedValue(generator = "uuid")
+    @GenericGenerator(name = "uuid", strategy = "uuid2")
     private UUID roleId;
     @Column(name = "role_name")
     private String roleName;
-
     @OneToMany(targetEntity = UserDto.class,fetch = FetchType.EAGER,cascade =CascadeType.ALL)
     @JoinColumn(name = "role_id", referencedColumnName = "role_id")
     private List<UserDto> users;
@@ -26,6 +26,7 @@ public class RoleDto {
     }
 
     public RoleDto(UUID roleId, String roleName, List<UserDto> users) {
+        super();
         this.roleId = roleId;
         this.roleName = roleName;
         this.users = users;

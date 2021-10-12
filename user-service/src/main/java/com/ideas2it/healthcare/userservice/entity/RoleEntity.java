@@ -10,12 +10,14 @@ public class RoleEntity {
     private List<UserEntity> users;
 
     public RoleEntity(UUID roleId, String roleName, List<UserEntity> users) {
+        super();
         this.roleId = roleId;
         this.roleName = roleName;
         this.users = users;
     }
 
     public RoleEntity(RoleEntityBuilder roleEntityBuilder) {
+        super();
         this.roleId = roleEntityBuilder.roleId;
         this.roleName = roleEntityBuilder.roleName;
         this.users = roleEntityBuilder.users;

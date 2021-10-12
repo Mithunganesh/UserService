@@ -30,18 +30,24 @@ public class UserServiceImpl implements UserService{
             return null;
     }
 
-    public UserEntity findByName(String name) {
+    public UserDto findByName(String name) {
         Optional<UserDto> op = userRepository.findByName(name);
         if(op.isPresent())
-            return EntityDtoConversionUtils.formEntity(op.get());
+            return op.get();
         else
             return null;
     }
 
 
 
-    public UserEntity update(UserEntity userEntity){
-        return null;
+    public boolean update(UserEntity userEntity){
+    UserDto userInDb = findByName(userEntity.getUserName());
+    if(userInDb != null) {
+        userRepository.update(userEntity.getRoleId(), userEntity.getUserName());
+        return true;
+    }else{
+        return false;
+    }
     }
 
     @Override

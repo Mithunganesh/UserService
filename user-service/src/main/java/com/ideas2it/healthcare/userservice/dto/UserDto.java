@@ -14,7 +14,7 @@ public class UserDto {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Type(type = "uuid-char")
-    @Column(name="user_id", columnDefinition = "VARCHAR(255)", insertable = false, updatable = false, nullable = false)
+    @Column(name="user_id", columnDefinition = "VARCHAR(255)")
     private UUID userId;
     @Column(name = "user_name")
     private String userName;
@@ -35,6 +35,7 @@ public class UserDto {
     }
 
     public UserDto(UUID userId, String userName, String password, UUID roleId, Date createdTime, Date lastUpdatedTime) {
+        super();
         this.userId = userId;
         this.userName = userName;
         this.password = password;

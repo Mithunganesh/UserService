@@ -5,6 +5,9 @@ import com.ideas2it.healthcare.userservice.dto.UserDto;
 import com.ideas2it.healthcare.userservice.entity.RoleEntity;
 import com.ideas2it.healthcare.userservice.entity.UserEntity;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 public class EntityDtoConversionUtils {
 
     public static UserEntity formEntity(UserDto userDto){
@@ -28,11 +31,25 @@ public class EntityDtoConversionUtils {
         return userDto;
     }
 
+    public static List<UserDto> formUserDtoList(List<UserEntity> userEntities){
+        if(userEntities != null)
+        return userEntities.stream().map(dto -> EntityDtoConversionUtils.formUserDto(dto)).collect(Collectors.toList());
+        else
+            return null;
+    }
+
+    public static List<UserEntity> formUserEntityList(List<UserDto> userDtos){
+        if(userDtos!=null)
+        return userDtos.stream().map(entity -> EntityDtoConversionUtils.formEntity(entity)).collect(Collectors.toList());
+        else
+            return null;
+    }
 
     public static RoleDto formRoleDto(RoleEntity roleEntity){
         RoleDto roleDto = new RoleDto();
         roleDto.setRoleId(roleEntity.getRoleId());
         roleDto.setRoleName(roleEntity.getRoleName());
+        roleDto.setUsers(formUserDtoList(roleEntity.getUsers()));
         return roleDto;
     }
 
@@ -40,6 +57,7 @@ public class EntityDtoConversionUtils {
         return new RoleEntity.RoleEntityBuilder()
                 .roleId(roleDto.getRoleId())
                 .roleName(roleDto.getRoleName())
+                .users(formUserEntityList(roleDto.getUsers()))
                 .build();
     }
 
